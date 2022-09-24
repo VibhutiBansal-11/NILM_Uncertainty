@@ -3,7 +3,6 @@ import jax
 import jax.numpy as jnp
 import optax
 
-
 class cmlp(nn.Module):
     features: list
     activations: list

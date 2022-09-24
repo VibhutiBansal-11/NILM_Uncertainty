@@ -4,8 +4,6 @@ import jax.numpy as jnp
 import tensorflow_probability.substrates.jax as tfp
 
 dist = tfp.distributions
-
-
 class gmlp(nn.Module):
     features: list
     activations: list

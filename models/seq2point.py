@@ -20,7 +20,6 @@ class seq2point(nn.Module):
         X = nn.relu(X)
         X = nn.Dropout(rate=0.2, deterministic=deterministic)(X)
         X = nn.Dense(1)(X)
-    
         return X
         
     def loss_fn(self, params, X, y, deterministic, rng):

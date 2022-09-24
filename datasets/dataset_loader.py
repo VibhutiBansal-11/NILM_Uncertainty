@@ -4,10 +4,10 @@ from datetime import datetime
 from sklearn.preprocessing import StandardScaler
 from sklearn.utils import shuffle
 from sklearn.model_selection import train_test_split
+
 def dataset_load(appliances, train, test=None,n=19,split_factor=0.3):
     x_train = []
     y_train = []
-    # n = 19
     units_to_pad = n // 2
     scaler_x = StandardScaler()
     scaler_y = StandardScaler()
@@ -32,10 +32,8 @@ def dataset_load(appliances, train, test=None,n=19,split_factor=0.3):
     
     x_train = jnp.array(x_train)    
     y_train = jnp.array(y_train).reshape(-1,1)
-    
     x_train = scaler_x.fit_transform(x_train)
     y_train = scaler_y.fit_transform(y_train)
-    
     #test
     x_test = []
     y_test = []
@@ -47,8 +45,7 @@ def dataset_load(appliances, train, test=None,n=19,split_factor=0.3):
         endDate = datetime.strptime(values["end_time"], "%Y-%m-%d").date()
         
         if startDate > endDate:
-            raise "Start Date must be smaller than Enddate."
-        
+            raise "Start Date must be smaller than Enddate."     
         df = df[(df["date"] >= startDate) & (df["date"] <= endDate)]
         df.dropna(inplace=True)
         x = df["main"].values
@@ -59,23 +56,13 @@ def dataset_load(appliances, train, test=None,n=19,split_factor=0.3):
         x_test.extend(x)
         y_test.extend(y)
         x_test_timestamp.extend(timestamp)
-
-    
+  
     x_test = jnp.array(x_test)
     y_test = jnp.array(y_test).reshape(-1,1)
-    
     x_test = scaler_x.transform(x_test)
-#     y_test = scaler_y.transform(y_test)
-    
     x_train = jnp.array(x_train).reshape(x_train.shape[0], n, 1)
     y_train = jnp.array(y_train)
     x_test = jnp.array(x_test).reshape(x_test.shape[0], n, 1)
     y_test = jnp.array(y_test)
-    # x_train,y_train = shuffle(x_train,y_train)
-    # x_train  = x_train_[:int(len(x_train_)*0.8)]
-    # y_train = y_train_[:int(len(y_train_)*0.8)]
-    # x_cal  = x_train_[int(len(x_train_)*0.8):]
-    # y_cal= y_train_[int(len(y_train_)*0.8):]
-
     x_train,x_cal , y_train, y_cal = train_test_split(x_train, y_train, test_size=split_factor, random_state=42)
     return x_train, y_train,x_cal,y_cal, x_test, y_test, x_test_timestamp, scaler_x, scaler_y

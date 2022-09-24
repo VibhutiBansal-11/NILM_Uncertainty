@@ -2,8 +2,6 @@ import jax
 import jax.numpy as jnp
 import optax
 from functools import partial
-
-
 def fit(
     model,
     params,

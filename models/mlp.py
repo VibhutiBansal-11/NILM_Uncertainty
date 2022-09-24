@@ -2,13 +2,10 @@ from flax import linen as nn
 import jax
 import jax.numpy as jnp
 import optax
-
-
 class mlp(nn.Module):
     features: list
     activations: list
     dropout_rate: list
-
     @nn.compact
     def __call__(self, X, deterministic):
         if len(self.activations) != len(self.features) - 1:

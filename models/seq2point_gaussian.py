@@ -23,8 +23,6 @@ class seq2point(nn.Module):
         X = nn.Dense(1024)(X)
         X = nn.relu(X)
         X = nn.Dropout(rate=0.2, deterministic=deterministic)(X)
-        # X = nn.Dense(2)(X)
-    
         mean = nn.Dense(1)(X)
         sigma = nn.softplus(nn.Dense(1)(X))
         return mean, sigma

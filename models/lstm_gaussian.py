@@ -3,7 +3,6 @@ import jax
 import jax.numpy as jnp
 import tensorflow_probability.substrates.jax as tfp
 dist = tfp.distributions
-
 class AttentionLayer():
     def __init__(self, units):
         super(AttentionLayer, self).__init__()
@@ -39,17 +38,13 @@ class lstm_gmlp(nn.Module):
         c1, X1 = self.lstm1(c1, X)
         c2 = nn.LSTMCell.initialize_carry(jax.random.PRNGKey(0), (X_flip.shape[0], ), 128)
         c2, X2 = self.lstm2(c2, X_flip)
-        
         X = jnp.concatenate([X1, X2], axis=-1)
-        
         X_flip = jnp.flip(X, axis=-1)
         c3 = nn.LSTMCell.initialize_carry(jax.random.PRNGKey(0), (X.shape[0], ), 256)
         c3, X1 = self.lstm3(c3, X)
         c4 = nn.LSTMCell.initialize_carry(jax.random.PRNGKey(0), (X_flip.shape[0], ), 256)
         c4, X2 = self.lstm4(c4, X_flip)
-
         X = jnp.concatenate([X1, X2], axis=-1)
-
         X = AttentionLayer(units=128)(X)
         X = nn.Dense(128)(X)
         X = nn.tanh(X)
