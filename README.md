@@ -6,7 +6,21 @@ This repository contains code for “I do not know”: Quantifying Uncertainty i
 
 Please use the following bib entry to cite the paper.
 ```
-
+@inproceedings{10.1145/3563357.3564063,
+author = {Bansal, Vibhuti and Khoiwal, Rohit and Shastri, Hetvi and Khandor, Haikoo and Batra, Nipun},
+title = {"I Do Not Know": Quantifying Uncertainty in Neural Network Based Approaches for Non-Intrusive Load Monitoring},
+year = {2022},
+isbn = {9781450398909},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3563357.3564063},
+doi = {10.1145/3563357.3564063},
+pages = {79–88},
+numpages = {10},
+keywords = {calibration, neural networks, non-intrusive load monitoring, uncertainty, bayesian analysis},
+location = {Boston, Massachusetts},
+series = {BuildSys '22}
+}
 ```
 
 
